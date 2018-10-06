@@ -16,9 +16,9 @@ if [ "$1" == 'build' ]; then
 
   else
 
-    echo "Building image : $IMG_NAME:base"
-    docker rmi -f "$IMG_NAME":base
-    docker build . -f Dockerfile -t "$IMG_NAME":base
+    echo "Building image : $IMG_NAME:lastest"
+    docker rmi -f "$IMG_NAME":latest
+    docker build . -f Dockerfile -t "$IMG_NAME":latest
 
   fi
 
