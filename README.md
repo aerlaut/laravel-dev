@@ -1,15 +1,54 @@
-Docker PHP-FPM 7.2 & Nginx 1.14 on Alpine Linux
-==============================================
-Example PHP-FPM 7.2 & Nginx 1.14 setup for Docker, build on [Alpine Linux](http://www.alpinelinux.org/).
-The image is only +/- 35MB large.
+Image based on `trafex/alpine-nginx-php7`.
 
+## Contents ##
 
-[![Docker Pulls](https://img.shields.io/docker/pulls/trafex/alpine-nginx-php7.svg)](https://hub.docker.com/r/trafex/alpine-nginx-php7/)
+The image runs : 
+- Nginx
+- PHP 7.2 & PHP-FPM
 
-Usage
------
-Start the Docker containers:
+PHP modules : 
+- JSON
+- MBString
+- OpenSSL
+- PDO MySQL
+- Session
+- PHP Common
+- Tokenizer
+- Mcrypt
+- Fileinfo
+- CLI
+- ZIP
+- CURL
+- XML
+- DOM
+- XMLReader
+- Ctype
+- PHP GD
 
-    docker run -p 80:80 trafex/alpine-nginx-php7
+## USAGE ##
 
-See the PHP info on http://localhost, or the static html page on http://localhost/test.html
+### Conf files ###
+
+Configuration files are located at : 
+
+Nginx : `/etc/nginx/nginx.conf`
+PHP-FPM pool : `/etc/php7/php-fpm.d/zz-custom.conf`
+PHP : `/etc/php7/conf.d/zz-custom.ini`
+Supervisord : `/etc/supervisor/conf.d/supervisord.conf`
+
+Nginx root is set as `/var/www/html/public/`.
+
+### Getting content into container ###
+
+Content can be copied or mounted into container with `var/www/html` as its base :
+
+copied through Dockefile
+
+    FROM aerlaut/laravel-base
+    COPY . /var/www/html
+
+or mounted
+
+    docker run -v <src>:/var/www/html -p 80:80 aerlaut/laravel-base
+
+Nginx and PHP-FPM are set to run as `root:dev`. The group `dev` has ID `1024`. Folder on host can be mounted with group `1024` to enable editing from both the container and the host.
