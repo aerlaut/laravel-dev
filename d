@@ -1,9 +1,10 @@
 #!/bin/bash
 
-# local ip to setup
+# local settings
 IMG_NAME=aerlaut/laravel-base
 HOST=0.0.0.0
 PORT=8080
+TEST_CONTAINER_NAME=laravel-base-test
 
 if [ "$1" == 'build' ]; then
 
@@ -22,12 +23,19 @@ if [ "$1" == 'build' ]; then
 
   fi
 
-elif [ "$1" = 'run' ]; then
+elif [ "$1" == 'up' ]; then
 
-  docker run -d --rm -p $HOST:$PORT:80 $IMG_NAME
+  docker kill $TEST_CONTAINER_NAME
+  docker run --rm -p $HOST:$PORT:80 --name $TEST_CONTAINER_NAME $IMG_NAME
+  echo "Container $TEST_CONTAINER_NAME running at http://$HOST:$PORT"
 
-elif [ "$1" = 'tty' ]; then
+elif [ "$1" == 'down' ]; then
 
-  docker exec -it "$2" /bin/sh
+  docker kill $TEST_CONTAINER_NAME
+  echo "Container $TEST_CONTAINER_NAME killed"
+
+elif [ "$1" == 'sh' ]; then
+
+  docker exec -it "$TEST_CONTAINER_NAME" /bin/sh
 
 fi

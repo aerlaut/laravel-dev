@@ -7,6 +7,16 @@ LABEL Maintainer="Anugerah Erlaut <aerlaut@live.com>" \
 RUN addgroup -g 1024 dev && \
     adduser -D -u 500 -G dev dev
 
+# Configure nginx
+COPY config/nginx.conf /etc/nginx/nginx.conf
+
+# Configure PHP-FPM
+COPY config/fpm-pool.conf /etc/php7/php-fpm.d/zz-custom.conf
+COPY config/php.ini /etc/php7/conf.d/zz-custom.ini
+
+# Configure supervisord 
+COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
 # Install packages
 RUN apk --no-cache add php7 \
     php7-json \
@@ -27,24 +37,13 @@ RUN apk --no-cache add php7 \
     php7-xmlreader \
     php7-ctype \
     php7-gd \
+    php7-opcache \
     nginx \
     supervisor \
     curl
 
-# Configure nginx
-COPY config/nginx.conf /etc/nginx/nginx.conf
-
-# Configure PHP-FPM
-COPY config/fpm-pool.conf /etc/php7/php-fpm.d/zz-custom.conf
-COPY config/php.ini /etc/php7/conf.d/zz-custom.ini
-
-# Configure supervisord 
-COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
-
 WORKDIR /var/www/html
-COPY src/ /var/www/html/public/
-
-RUN chown -R dev:dev /var/www/html
+COPY --chown=root:dev src/ /var/www/html/public/
 
 EXPOSE 80
 

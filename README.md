@@ -1,6 +1,4 @@
-Image based on `trafex/alpine-nginx-php7`.
-
-## Contents ##
+### Contents ###
 
 The image runs : 
 - Nginx
@@ -25,9 +23,11 @@ PHP modules :
 - Ctype
 - PHP GD
 
-## USAGE ##
+Image based on `trafex/alpine-nginx-php7`.
 
-### Conf files ###
+### USAGE ###
+
+#### Conf files ####
 
 Configuration files are located at : 
 
@@ -38,7 +38,7 @@ Supervisord : `/etc/supervisor/conf.d/supervisord.conf`
 
 Nginx root is set as `/var/www/html/public/`.
 
-### Getting content into container ###
+#### Getting content into container ####
 
 Content can be copied or mounted into container with `var/www/html` as its base :
 
