@@ -23,6 +23,7 @@ RUN apk --no-cache add php7 \
     php7-mbstring \
     php7-openssl \
     php7-pdo_mysql \
+    php7-pdo_sqlite \
     php7-session \
     php7-common \
     php7-tokenizer \
@@ -37,7 +38,7 @@ RUN apk --no-cache add php7 \
     php7-xmlreader \
     php7-ctype \
     php7-gd \
-    php7-opcache \
+    php7-xdebug \
     nginx \
     supervisor \
     curl

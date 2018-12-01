@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # local settings
-IMG_NAME=aerlaut/laravel-base
+IMG_NAME=aerlaut/laravel-dev
 HOST=0.0.0.0
 PORT=8080
-TEST_CONTAINER_NAME=laravel-base-test
+TEST_CONTAINER_NAME=laravel-dev-test
 
 if [ "$1" == 'build' ]; then
 
@@ -17,9 +17,9 @@ if [ "$1" == 'build' ]; then
 
   else
 
-    echo "Building image : $IMG_NAME:lastest"
-    docker rmi -f "$IMG_NAME":latest
-    docker build . -f Dockerfile -t "$IMG_NAME":latest
+    echo "Building image : $IMG_NAME:dev"
+    docker rmi -f "$IMG_NAME":dev
+    docker build . -f Dockerfile -t "$IMG_NAME":dev
 
   fi
 
